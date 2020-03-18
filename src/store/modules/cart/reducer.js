@@ -11,7 +11,10 @@ export default function cart(state = [], action) {
       // e recebem o state 
       // e a partir daí, acessar o reducer ou reducers que 
       // estiver interessado no componente
-      return [...state, action.product ];
+      return [...state, {
+        ...action.product,
+        amount: 1,
+      } ];
     default:
       return state;
   }
