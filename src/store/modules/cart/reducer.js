@@ -1,3 +1,5 @@
+import produce from 'immer';
+
 // ao dar o dispatch é enviado o type e o payload (product, aqui)
 // e os reducers ouvem TODAS as actions.
 // pra isso usar o switch
@@ -11,10 +13,24 @@ export default function cart(state = [], action) {
       // e recebem o state 
       // e a partir daí, acessar o reducer ou reducers que 
       // estiver interessado no componente
+      return produce(state, draft => {
+        const productIndex = draft.findIndex(p => p.id === action.product.id);
+        if (productIndex >= 0) {
+          draft[productIndex].amount += 1;
+        } else {
+          draft.push({
+            ...action.product,
+            amount: 1, 
+          });
+        }
+        
+      });
+/*
       return [...state, {
         ...action.product,
         amount: 1,
       } ];
+      */
     default:
       return state;
   }
