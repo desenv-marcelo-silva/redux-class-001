@@ -19,7 +19,7 @@ class Home extends Component {
     };
   }
 
-  async componentDidMount () {
+  async componentDidMount() {
     const response = await api.get ('products');
 
     const data = response.data.map (product => ({
@@ -36,7 +36,8 @@ class Home extends Component {
   };
 
   render() {
-    const {products} = this.state;
+    const { products } = this.state;
+    const { amount } = this.props;
 
     return (
       <ProductList>
@@ -50,7 +51,7 @@ class Home extends Component {
               onClick={() => this.handleAddProduct (product)}
             >
               <div>
-                <MdAddShoppingCart size={16} color="#FFF" /> 3
+                <MdAddShoppingCart size={16} color="#FFF" />{ amount[product.id]  || 0 }
               </div>
 
               <span>ADICIONAR AO CARRINHO</span>
@@ -65,6 +66,12 @@ class Home extends Component {
 const mapDispatchToProps = dispatch =>
   bindActionCreators(CartActions, dispatch);
 
+const mapStateToProps = state => ({
+    amount: state.cart.reduce((amount, product) => {
+      amount[product.id] = product.amount;
+      return amount;
+    }, {}),
+});
 //connect faz a ligação do component com a store do redux
 // aceita uma função dentro do connect
-export default connect(null, mapDispatchToProps)(Home);
+export default connect(mapStateToProps, mapDispatchToProps)(Home);
