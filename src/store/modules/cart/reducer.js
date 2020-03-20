@@ -7,7 +7,7 @@ import produce from 'immer';
 // passe o segundo parâmtro action
 export default function cart (state = [], action) {
   switch (action.type) {
-    case '@cart/ADD':
+    case '@cart/ADD_SUCCESS':
       // faz a modificação do state
       // redux avisa todos que tem o connect
       // e recebem o state
