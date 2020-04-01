@@ -12,7 +12,6 @@ import { Container, ProductTable, Total } from './styles';
 
 import * as CartActions from '../../store/modules/cart/actions';
 
-// function Cart({cart, total, removeFromCart, updateAmountRequest}) {
 export default function Cart() {
   const total = useSelector((state) =>
     formatPrice(
